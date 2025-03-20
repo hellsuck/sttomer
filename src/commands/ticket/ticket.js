@@ -123,6 +123,19 @@ module.exports = {
         ],
       },
       {
+        name: "rename",
+        description: "renames the ticket",
+        type: ApplicationCommandOptionType.Subcommand,
+        options: [
+          {
+            name: "name",
+            description: "name",
+            type: ApplicationCommandOptionType.String,
+            required: true,
+          },
+        ],
+      },
+      {
         name: "remove",
         description: "remove user from the ticket channel [used in ticket channel only]",
         type: ApplicationCommandOptionType.Subcommand,
@@ -161,6 +174,8 @@ module.exports = {
       if (target.length === 0) return message.safeReply("Could not find any matching channel");
       response = await setupLogChannel(target[0], data.settings);
     }
+
+    
 
     // Set limit
     else if (input === "limit") {
@@ -238,6 +253,11 @@ module.exports = {
       const limit = interaction.options.getInteger("amount");
       response = await setupLimit(limit, data.settings);
     }
+    else if (sub === "rename") {
+      const limit = interaction.options.getString("name");
+      response = await handleticketrename(interaction, limit)
+    }
+
 
     // Close
     else if (sub === "close") {

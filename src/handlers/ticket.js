@@ -296,11 +296,20 @@ async function handleTicketClose(interaction) {
   }
 }
 
+async function handleticketrename(interaction, newName) {
+  await interaction.deferReply({ ephemeral: true });
+  interaction.channel.setName(newName);
+  interaction.reply("Done")
+}
+
+
+
 module.exports = {
   getTicketChannels,
   getExistingTicketChannel,
   isTicketChannel,
   closeTicket,
+  handleticketrename,
   closeAllTickets,
   handleTicketOpen,
   handleTicketClose,
